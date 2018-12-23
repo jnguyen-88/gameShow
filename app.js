@@ -1,4 +1,4 @@
-const qwerty = document.querySelector('#qwerty');
+const keyboard = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
 const btnReset = document.querySelector('.btn__reset');
 const ul = document.querySelector('#phrase');
@@ -6,8 +6,8 @@ const missed = 0;
 
 // Array of Phrases
 const phrases = [
-                "I like you", 
-                "Good Morning", 
+                "I like you e", 
+                "Good Morning e", 
                 "Wassup Gangster",
                 "Thats what she said",
                 "I got my mind on my money and my money on my mind"
@@ -45,14 +45,24 @@ function addPhraseToDisplay(arr) {
 // Check if input is correct letter
 function checkLetter(event) {
   // if input of ele of class "letter" is correct add 'show' class to <li> store and return letter
-  let correctLetter = document.getElementsByClassName('letter');
-  for(let i = 0; i < correctLetter.length; i++) {
-    if(correctLetter[i].textContent === 'e') {
-      console.log('hello');
-      correctLetter[i].classList.add('show');
-    }
-  };
-}
+  let checkLetters = document.getElementsByClassName('letter');
+  let foundLetter = false;
+  for(let i = 0; i < checkLetters.length; i++) {
+    if(checkLetters[i].textContent === 'e') {
+      foundLetter = true;
+      if(foundLetter) {
+        console.log('hello');
+        checkLetters[i].classList.add('show');
+      } else {
+      return null;
+      }
+    };
+  }
+};
+
+keyboard.addEventListener('click', (e) => {
+  checkLetter(e);
+})
 
 addPhraseToDisplay(phraseArray);
 
