@@ -61,7 +61,12 @@ function checkLetter(event) {
 };
 
 keyboard.addEventListener('click', (e) => {
-  checkLetter(e);
+  if(e.target.tagName === "BUTTON") {
+    let letter = e.target.textContent;
+    if(letter === 'e') {
+      checkLetter()
+    }
+  }
 })
 
 addPhraseToDisplay(phraseArray);
