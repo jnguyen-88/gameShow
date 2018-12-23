@@ -42,30 +42,44 @@ function addPhraseToDisplay(arr) {
   }
 };
 
-// Check if input is correct letter
-function checkLetter(event) {
+// Check if input is correct letter and reveals letter
+function checkLetter(guess) {
   // if input of ele of class "letter" is correct add 'show' class to <li> store and return letter
-  let checkLetters = document.getElementsByClassName('letter');
+  let checkLetters = document.querySelectorAll('.letter');
   let foundLetter = false;
   for(let i = 0; i < checkLetters.length; i++) {
-    if(checkLetters[i].textContent === 'e') {
+    if(checkLetters[i].textContent === guess) {
       foundLetter = true;
-      if(foundLetter) {
-        console.log('hello');
-        checkLetters[i].classList.add('show');
-      } else {
-      return null;
-      }
+      checkLetters[i].classList.add('show');
     };
-  }
+  };
+  if(foundLetter) {
+    return guess;
+  } else {
+    return null;
+  };
 };
 
 keyboard.addEventListener('click', (e) => {
   if(e.target.tagName === "BUTTON") {
-    let letter = e.target.textContent;
-    if(letter === 'e') {
-      checkLetter()
+    let match = false;
+    let guess = e.target.textContent;
+    checkLetter(guess);
+    if(guess === checkLetter(guess)){
+      match = true;
+      e.target.classList.add('chosen');
+      e.target.setAttribute('disabled', true);
+      console.log('match');
+    } else {
+      e.target.classList.add('chosen');
+      e.target.setAttribute('disabled', true);
+      console.log('no match');
     }
+    // let guessLetter = e.target.textContent;
+    // if(guessLetter === correctLetter) {
+    //   clickedEle.classList.add('chosen');
+    //   console.log(correctLetter);
+    // }
   }
 })
 
