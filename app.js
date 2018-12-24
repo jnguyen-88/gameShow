@@ -9,7 +9,7 @@ let missed = 0;
 
 // Array of Phrases
 const phrases = [
-                "I live for the nights that I cant remember, with the people that I wont forget", 
+                "i live for the nights that i cant remember with the people that i wont forget", 
                 "good morning", 
                 "wassup gangster",
                 "thats what she said",
