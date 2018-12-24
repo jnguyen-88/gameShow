@@ -5,13 +5,15 @@ const ul = document.querySelector('#phrase');
 const buttons = document.querySelectorAll('.keyrow button');
 const overlay = document.querySelector('#overlay').parentNode;
 const header = document.querySelector('.header');
+const banner = document.querySelector('#banner');
 let missed = 0;
+let winGame = false;
 
 // Array of Phrases
 const phrases = [
                 "i live for the nights that i cant remember with the people that i wont forget", 
-                "good morning", 
                 "wassup gangster",
+                "good morning", 
                 "thats what she said",
                 "i got my mind on my money and my money on my mind"
                 ];
@@ -21,6 +23,22 @@ btnReset.addEventListener('click', () => {
   document.querySelector('#overlay').style.display = 'none';
   addPhraseToDisplay(phraseArray);
 });
+
+// Game Over
+const gameOver = () => {
+ for(let i = 0; i < buttons.length; i++) {
+  let button = buttons[i];
+  button.setAttribute('disabled', true);
+ };
+ if(!winGame) {
+    overlay.classList.add('lose');
+    header.textContent = "YOU LOSE";
+ } else {
+    overlay.classList.add('win');
+    header.textContent = "YOU WIN!";
+ };
+}
+
 
 // Get a random phrase from phrases arr
 const getRandomPhraseArray = (arr) => {
@@ -43,7 +61,7 @@ const addPhraseToDisplay = (arr) => {
       li.classList.add('letter');
     } else {
       li.classList.add('space');
-    }
+    };
     ul.appendChild(li);
   };
 };
@@ -55,8 +73,7 @@ const loseLife = () => {
   const url = "images/lostHeart.png";
   heart.setAttribute('src', url);
   if(missed === 5) {
-    overlay.classList.add('lose');
-    header.textContent = "YOU LOSE";
+    gameOver();
   };
 };
 
@@ -65,8 +82,8 @@ const checkWin = () => {
   const allShowLetters = document.querySelectorAll('.show');
   overlay.classList.remove('start');
   if(allCheckLetters.length === allShowLetters.length) {
-    overlay.classList.add('win');
-    header.textContent = "YOU WIN!";
+    winGame = true;
+    gameOver();
   };
 };
 
@@ -92,13 +109,11 @@ const checkLetter = (guess) => {
 
 // Keyboard events
 keyboard.addEventListener('click', (e) => {
-  let letterFound;
   let selection = e.target;
-  if(e.target.tagName === "BUTTON") {
+  if(selection.tagName === "BUTTON") {
     let guess = selection.textContent;
     checkLetter(guess);
     if(guess === checkLetter(guess)){
-      letterFound = checkLetter(guess);
       selection.classList.add('chosen');
       selection.setAttribute('disabled', true);
       checkWin();
